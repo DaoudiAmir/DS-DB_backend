@@ -10,6 +10,8 @@ django-debug-toolbar = "*"
 djoser = "*"
 djangorestframework = "*"
 djangorestframework-simplejwt = "*"
+django-cors-headers = "*"
+django-templated-mail = "*"
 
 [dev-packages]
 

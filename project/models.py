@@ -39,7 +39,7 @@ class Professor (models.Model):
 class Student (models.Model):
     
     registration_number = models.IntegerField()
-    supervisor = models.ForeignKey(Professor, on_delete=models.PROTECT,) 
+    supervisor = models.ForeignKey(Professor, on_delete=models.PROTECT) 
     project = models.ForeignKey('Project', on_delete=models.PROTECT)
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
