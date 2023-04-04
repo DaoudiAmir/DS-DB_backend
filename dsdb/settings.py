@@ -154,7 +154,7 @@ AUTH_USER_MODEL = 'core.User'
 
 DJOSER = {
     'LOGIN_FIELD': 'email',
-    'PASSWORD_RESET_CONFIRM_URL': '#/password/reset/confirm/{uid}/{token}',
+    'PASSWORD_RESET_CONFIRM_URL': 'reset_password/{uid}/{token}',
     'USERNAME_RESET_CONFIRM_URL': '#/username/reset/confirm/{uid}/{token}',
     'ACTIVATION_URL': '#/activate/{uid}/{token}',
     'SEND_ACTIVATION_EMAIL': True,
@@ -171,6 +171,10 @@ DJOSER = {
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 SITE_NAME = "DS-DB"
+
+
+PROTOCOL = "http"
+DOMAIN = "localhost:3000"
 
 SIMPLE_JWT = {
    'AUTH_HEADER_TYPES': ('JWT',),
