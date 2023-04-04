@@ -30,3 +30,6 @@ Notes:
     from an increment .
     - you need to clone this repository using the following command "git clone https://github.com/DaoudiAmir/DS-DB_backend.git" 
     - we're gonna be needing a new repository that combines both the front and the backend.
+    
+Important Note : to clone the repository properly and not encounter any issues running the project with docker, use this commande :
+                 "git clone https://github.com/DaoudiAmir/DS-DB_backend.git --config core.autocrlf=input"
