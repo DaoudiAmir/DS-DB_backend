@@ -8,64 +8,7 @@ from django.db import models
 # class Professor 
 # class Project 
 
-class Professor (models.Model):
-    
-    phone = models.CharField(max_length=50)
-    
-    user = models.OneToOneField(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-     
-    def __str__(self) -> str:
-        return self.user.first_name
-    
-    @admin.display(ordering='user__first_name')
-    def first_name(self):
-        return self.user.first_name
-
-    @admin.display(ordering='user__last_name')
-    def last_name(self):
-        return self.user.last_name
-    
-    def email(self):
-        return self.user.email
-    
-    def birth_date(self):
-        return self.user.birth_date
-
-    class Meta:
-        ordering = ['user__first_name', 'user__last_name']
-
-
-class Student (models.Model):
-    
-    registration_number = models.IntegerField()
-    supervisor = models.ForeignKey(Professor, on_delete=models.PROTECT) 
-    project = models.ForeignKey('Project', on_delete=models.PROTECT)
-    user = models.OneToOneField(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-     
-    def __str__(self) -> str:
-        return self.user.first_name
-    
-    @admin.display(ordering='user__first_name')
-    def first_name(self):
-        return self.user.first_name
-
-    @admin.display(ordering='user__last_name')
-    def last_name(self):
-        return self.user.last_name
-    
-    def email(self):
-        return self.user.email
-    
-    def birth_date(self):
-        return self.user.birth_date
-
-    class Meta:
-        ordering = ['user__first_name', 'user__last_name']
-
-
-
+"""
 class Project (models.Model):
     
     ACTIVE = 'Active'
@@ -94,4 +37,4 @@ class Project (models.Model):
     # but participants can be in only one project ,but professor can participate in multiple projects 
     
     def __str__(self) -> str:
-        return self.title
+        return self.title"""

@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "*"
+django = "==3.*"
 mysqlclient = "*"
 django-debug-toolbar = "*"
 djoser = "*"
@@ -12,6 +12,10 @@ djangorestframework = "*"
 djangorestframework-simplejwt = "*"
 django-cors-headers = "*"
 django-templated-mail = "*"
+django-allauth = "*"
+django-rest-auth = "*"
+pillow = "*"
+drf-nested-routers = "*"
 
 [dev-packages]
 

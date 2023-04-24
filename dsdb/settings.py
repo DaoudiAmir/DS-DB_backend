@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from datetime import timedelta
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -38,9 +39,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #'django.contrib.sites',
     'corsheaders',
     'debug_toolbar',
+    # auth api
+    #'allauth',
+    #'allauth.account',
+    #'rest_auth',
+    #'rest_auth.registration',
     'rest_framework',
+    #'rest_framework.authtoken',
     'djoser',
     'project',
     'core',
@@ -135,7 +143,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -149,14 +160,17 @@ REST_FRAMEWORK = {
     ),
 }
 
+#REST_USE_JWT = True
+
+#SITE_ID = 1
 
 AUTH_USER_MODEL = 'core.User'
 
 DJOSER = {
     'LOGIN_FIELD': 'email',
     'PASSWORD_RESET_CONFIRM_URL': 'reset_password/{uid}/{token}',
-    'USERNAME_RESET_CONFIRM_URL': '#/username/reset/confirm/{uid}/{token}',
-    'ACTIVATION_URL': '#/activate/{uid}/{token}',
+    'USERNAME_RESET_CONFIRM_URL': 'username_reset/{uid}/{token}',
+    'ACTIVATION_URL': 'activate/{uid}/{token}',
     'SEND_ACTIVATION_EMAIL': True,
     'SEND_CONFIRMATION_EMAIL': True,
     'PASSWORD_CHANGED_EMAIL_CONFIRMATION': True,
@@ -164,10 +178,22 @@ DJOSER = {
     'PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND': True,
     'USERNAME_RESET_SHOW_EMAIL_NOT_FOUND': True,
     'SERIALIZERS': {
-        'user_create': 'core.serializers.UserCreateSerializer',
         'current_user': 'core.serializers.UserSerializer',
     }
 }
+"""
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'localhost'
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_PORT = 5000
+EMAIL_USE_TLS = False
+DEFAULT_FROM_EMAIL = 'DSDB@esi-sba.dz'
+"""
+"""
+ADMINS = [
+    ('as.daoudi', 'as.daoudi@esi-sba.dz'),
+]"""
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 SITE_NAME = "DS-DB"
@@ -180,6 +206,7 @@ SIMPLE_JWT = {
    'AUTH_HEADER_TYPES': ('JWT',),
    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
    'BLACKLIST_AFTER_ROTATION': False,
+   
 }
 
 
@@ -189,14 +216,3 @@ DEBUG_TOOLBAR_CONFIG = {
 }
 
 
-
-"""EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'localhost'
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
-EMAIL_PORT = 2525
-DEFAULT_FROM_EMAIL = 'DSDB@gmail.com'
-
-ADMINS = [
-    ('as.daoudi', 'as.daoudi@esi-sba.dz'),
-]"""
