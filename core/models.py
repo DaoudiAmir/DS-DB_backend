@@ -11,10 +11,10 @@ from django.utils.translation import gettext_lazy as _
 class User(AbstractUser):
    is_student = models.BooleanField(_('student'),
                                     default=False,
-                                    help_text=_('Designates whether the user is a student'),)
+                                    help_text=_('Designates whether the user is a student'), unique=True)
    is_teacher = models.BooleanField(_('teacher'),
                                     default=False,
-                                    help_text=_('Designates whether the user is a teacher'),)    
+                                    help_text=_('Designates whether the user is a teacher'), unique=True)    
            
    email = models.EmailField(unique=True)
    
