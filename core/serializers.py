@@ -30,12 +30,16 @@ class UserCreateSerializer(BaseUserCreateSerializer):
                   'phone', 'establishment', 'specialty', 'grade',
                   'sector', 'picture'] 
         
-        
-class StudentUserSerializer(BaseUserSerializer):
+
+
+class UserSerializer(BaseUserSerializer):
     class Meta(BaseUserSerializer.Meta):
-        fields = ['is_student', 'registration_number', 'username', 
+        fields = ['is_student', 'is_teacher', 'registration_number', 'username', 
                   'first_name', 'last_name', 'phone', 'establishment',
-                  'specialty', 'sector', 'picture'] 
+                  'specialty', 'sector', 'grade', 'picture']
+    
+        
+
 
 
 
