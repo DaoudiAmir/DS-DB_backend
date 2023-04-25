@@ -5,7 +5,7 @@ from . import models
 
 
 
-class StudentInline(admin.TabularInline):
+class StudentInline(admin.StackedInline):
     model = coremodels.User
     extra = 0
 
@@ -17,5 +17,6 @@ class ProjectAdmin(admin.ModelAdmin):
     list_filter = ['status','project_leader']
     list_per_page = 10
     search_fields = ['title','description']
+    #autocomplete_fields = ['']
 
 

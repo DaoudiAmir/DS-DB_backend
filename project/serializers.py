@@ -1,18 +1,12 @@
 from rest_framework import serializers
 
-from .models import Student, Professor
+from . import models
 
 
 
-class StudentSerializer(serializers.ModelSerializer):
-    user_id = serializers.IntegerField(read_only=True)
+class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Student
-        fields = ['id', 'user_id', 'registration_number', 'supervisor', 'project']
-        
-        
-class ProfessorSerializer(serializers.ModelSerializer):
-    user_id = serializers.IntegerField(read_only=True)
-    class Meta:
-        model = Professor
-        fields = ['id', 'user_id', 'phone']
+        model = models.Project
+        fields = ['title','establishment','project_type','status',
+                  'deposition_date','deadline','project_leader','supervisor',
+                  'co_supervisor','trademark_name','scientific_product_name','description']
