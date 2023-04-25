@@ -218,6 +218,5 @@ DEBUG_TOOLBAR_CONFIG = {
 
 
 AUTH_USER_MODEL = 'core.User'
-PROJECT_MODEL = 'project.Project'
 
 

@@ -10,7 +10,14 @@ from rest_framework.decorators import action, permission_classes
 from djoser.views import UserViewSet as BaseUserViewSet
 from .models import User
 from django.conf import settings
-from . import serializers
+from .models import Project
+from .serializers import ProjectSerializer
+
+
+class ProjectViewSet(ModelViewSet):
+    queryset = Project.objects.all()
+    serializer_class = ProjectSerializer
+        
 
 
 
