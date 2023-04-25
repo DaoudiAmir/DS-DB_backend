@@ -8,7 +8,10 @@ class UserAdmin(BaseUserAdmin):
     fieldsets = (
         (None, {"fields": ("username", "password")}),
         (("Personal info"), {"fields": ("first_name", "last_name", "email",
-                                        )}),
+                                        "birth_date", "registration_number", "phone",
+                                        "establishment", "specialty",
+                                        "grade", "sector", "picture",
+                                        "picture_preview")}),
         (
             ("Permissions"),
             {
@@ -28,21 +31,19 @@ class UserAdmin(BaseUserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('username', 'password1', 'password2',
-                       'email', 'first_name', 'last_name','is_student', 'is_teacher'),
+            'fields': ('is_student', 'is_teacher', 'username',
+                       'password1', 'password2',
+                       'email', 'first_name', 'last_name',
+                       'registration_number', 'phone',
+                       'establishment', 'specialty', 'grade', 
+                       'sector', 'picture'),
         }),
     )
     
-@admin.register(models.Student)
-class StudentAdmin(admin.ModelAdmin):
-    list_display = ['registration_number','picture_preview','first_name', 'last_name', 
-                    'specialty']
-    list_per_page = 10
-    list_select_related = ['user']
-    ordering = ['registration_number']
-    search_fields = ['first_name__istartswith', 'last_name__istartswith']
     readonly_fields = ['picture_preview']
     
+
+    
     
     
 
@@ -50,4 +51,3 @@ class StudentAdmin(admin.ModelAdmin):
     
 
 
-admin.site.register(models.Teacher)

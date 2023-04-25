@@ -1,14 +1,14 @@
 from django.contrib import admin
 from django.conf import settings
 from django.db import models
-from core.models import User, Student, Teacher
+from core.models import User
 
 
 # class Student
 # class Professor 
 # class Project 
 
-
+"""
 class Project (models.Model):
     
     ACTIVE = 'Active'
@@ -38,3 +38,4 @@ class Project (models.Model):
     
     def __str__(self) -> str:
         return self.title
+"""

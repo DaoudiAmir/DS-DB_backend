@@ -18,25 +18,27 @@ from rest_framework_simplejwt.settings import api_settings
 from rest_framework_simplejwt.tokens import RefreshToken, SlidingToken, UntypedToken
 
 from djoser.serializers import UserSerializer as BaseUserSerializer
+from djoser.serializers import UserCreateSerializer as BaseUserCreateSerializer
+
+from core.models import User
 
 
-from core.models import Teacher, Student
-
-class StudentSerializer(serializers.ModelSerializer):
-    user_id = serializers.IntegerField()
-    
-    
-    
-    class Meta:
-        model = models.Student
-        depth = 1
-        fields = ['user_id',
-                  'registration_number', 'birth_date', 'phone',
-                  'establishment', 'picture','sector', 'specialty']
-    
-class UserSerializer(BaseUserSerializer):
+class UserCreateSerializer(BaseUserCreateSerializer):
+    class Meta(BaseUserCreateSerializer.Meta):
+        fields = ['is_student', 'is_teacher', 'username', 'password',
+                  'email', 'first_name', 'last_name', 'registration_number',
+                  'phone', 'establishment', 'specialty', 'grade',
+                  'sector', 'picture'] 
+        
+        
+class StudentUserSerializer(BaseUserSerializer):
     class Meta(BaseUserSerializer.Meta):
-        fields = ['id', 'username', 'email', 'first_name', 'last_name', 'is_teacher', 'is_student']
+        fields = ['is_student', 'registration_number', 'username', 
+                  'first_name', 'last_name', 'phone', 'establishment',
+                  'specialty', 'sector', 'picture'] 
+
+
+
     
         
     

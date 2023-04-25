@@ -102,7 +102,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'backend',
-        'HOST' : 'mysql',
+        'HOST' : 'localhost',
         'USER' : 'root',
         'PASSWORD' : 'spartaamir12342002'
     }
@@ -167,7 +167,6 @@ REST_FRAMEWORK = {
 AUTH_USER_MODEL = 'core.User'
 
 DJOSER = {
-    'LOGIN_FIELD': 'email',
     'PASSWORD_RESET_CONFIRM_URL': 'reset_password/{uid}/{token}',
     'USERNAME_RESET_CONFIRM_URL': 'username_reset/{uid}/{token}',
     'ACTIVATION_URL': 'activate/{uid}/{token}',
@@ -178,7 +177,9 @@ DJOSER = {
     'PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND': True,
     'USERNAME_RESET_SHOW_EMAIL_NOT_FOUND': True,
     'SERIALIZERS': {
-        'current_user': 'core.serializers.UserSerializer',
+        'user_create': 'core.serializers.UserCreateSerializer',
+        'user': 'core.serializers.StudentUserSerializer',
+        'current_user': 'core.serializers.StudentUserSerializer',
     }
 }
 """
