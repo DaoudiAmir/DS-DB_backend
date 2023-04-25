@@ -102,9 +102,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'backend',
-        'HOST' : 'mysql',
+        'HOST' : 'localhost',
         'USER' : 'root',
-        'PASSWORD' : 'spartaamir12342002'
+        'PASSWORD' : 'Be-Strange150902'
     }
 }
 
@@ -164,7 +164,6 @@ REST_FRAMEWORK = {
 
 #SITE_ID = 1
 
-AUTH_USER_MODEL = 'core.User'
 
 DJOSER = {
     'PASSWORD_RESET_CONFIRM_URL': 'reset_password/{uid}/{token}',
@@ -216,5 +215,9 @@ SIMPLE_JWT = {
 DEBUG_TOOLBAR_CONFIG = {
     'SHOW_TOOLBAR_CALLBACK': lambda request: True
 }
+
+
+AUTH_USER_MODEL = 'core.User'
+PROJECT_MODEL = 'project.Project'
 
 

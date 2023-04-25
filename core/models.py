@@ -8,6 +8,8 @@ from django.dispatch import receiver
 from django.utils.translation import gettext_lazy as _
 
 
+
+
 class User(AbstractUser):
          
    is_student = models.BooleanField(_('student'),
@@ -41,6 +43,9 @@ class User(AbstractUser):
    picture = models.ImageField(upload_to='core/images',
                                help_text=_('Define your profile picture'),
                                blank=True, null=True)
+   featured_project = models.OneToOneField(settings.PROJECT_MODEL, on_delete=models.PROTECT , blank=True , null=True)
+
+    
    
    REQUIRED_FIELDS = ['email', 'is_student', 'is_active', 'is_teacher', 'registration_number']
    
