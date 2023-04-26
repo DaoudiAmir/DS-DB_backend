@@ -7,6 +7,7 @@ from rest_framework_simplejwt.serializers import TokenObtainSerializer as BaseTo
 from dsdb.settings import MEDIA_URL
 from . import models
 
+
 from django.conf import settings
 from django.contrib.auth import authenticate, get_user_model
 from django.contrib.auth.models import update_last_login
@@ -41,13 +42,31 @@ class UserSerializer(BaseUserSerializer):
         
 
 
-class ProjectSerializer(serializers.ModelSerializer):
+class ViewModifyProjectSerializer(serializers.ModelSerializer):
+    status = serializers.CharField(read_only= True)
+    project_type = serializers.CharField(read_only= True)
+    project_leader = serializers.StringRelatedField()
+    supervisor = serializers.StringRelatedField()
+    co_supervisor = serializers.StringRelatedField()
+    participant = serializers.StringRelatedField( many=True)
     class Meta:
         model = models.Project
-        fields = ['title','establishment','project_type','status',
-                  'deposition_date','deadline','project_leader','supervisor',
-                  'co_supervisor','trademark_name','scientific_product_name','description']
+        fields = ['id','title','establishment','project_type','status',
+                  'project_leader','supervisor',
+                  'co_supervisor','trademark_name','scientific_product_name',
+                  'description', 'participant']
+        depth = 1
 
+class CreateProjectSerializer(serializers.ModelSerializer):
+    status = serializers.CharField(read_only= True)
+    project_type = serializers.CharField(read_only= True)
+    project_leader = serializers.StringRelatedField()
+    supervisor = serializers.StringRelatedField()
+    co_supervisor = serializers.StringRelatedField()
+    participant = serializers.StringRelatedField( many=True)
+    class Meta:
+        model= models.Project
+        fields = '__all__'
 
     
         

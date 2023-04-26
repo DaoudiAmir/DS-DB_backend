@@ -11,7 +11,7 @@ services:
     volumes:
       - .:/app
   mysql:
-    image: mysql:8.0.28
+    image: mysql:8.0
     ports:
       - 3366:3306
     restart: always
@@ -20,12 +20,5 @@ services:
       - MYSQL_ROOT_PASSWORD=spartaamir12342002
     volumes:
       - mysqldata:/var/lib/mysql    
-  smtp4dev:
-    image: rnwood/smtp4dev:v3
-    ports:
-      - 5000:80
-      - 25:25
-    restart: always
-
 volumes:
   mysqldata:

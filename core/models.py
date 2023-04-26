@@ -43,7 +43,8 @@ class User(AbstractUser):
    picture = models.ImageField(upload_to='core/images',
                                help_text=_('Define your profile picture'),
                                blank=True, null=True)
-   featured_project = models.OneToOneField('Project', on_delete=models.PROTECT , blank=True , null=True)
+   
+   
 
     
    
@@ -92,6 +93,8 @@ class Project (models.Model):
     trademark_name = models.CharField(max_length=255 , blank=True , null=True)
     scientific_product_name = models.CharField(max_length=255 , blank=True , null=True)
     description = models.TextField()
+    participant = models.ManyToManyField(User, blank=True , related_name='participants')
+    
     # participants : a project can have multiple participants including students and professors 
     # but participants can be in only one project ,but professor can participate in multiple projects 
     

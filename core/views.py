@@ -11,12 +11,22 @@ from djoser.views import UserViewSet as BaseUserViewSet
 from .models import User
 from django.conf import settings
 from .models import Project
-from .serializers import ProjectSerializer
+from .serializers import ViewModifyProjectSerializer, CreateProjectSerializer
+from . import permissions
 
 
 class ProjectViewSet(ModelViewSet):
     queryset = Project.objects.all()
-    serializer_class = ProjectSerializer
+    serializer_class = ViewModifyProjectSerializer
+    permission_classes = [permissions.IsProjectLeaderOrAuthenticatedUser]
+    
+    def get_serializer_class(self):
+        if self.request.method in ['POST', 'PUT', 'PATCH']:
+            return CreateProjectSerializer
+        return ViewModifyProjectSerializer
+    
+        
+    
         
 
 

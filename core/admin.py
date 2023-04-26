@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.utils.html import format_html, urlencode
+from django.contrib.contenttypes.admin import GenericTabularInline
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from . import models
 
@@ -33,7 +34,7 @@ class UserAdmin(BaseUserAdmin):
             'classes': ('wide',),
             'fields': ('is_student', 'is_teacher', 'username',
                        'password1', 'password2',
-                       'email', 'first_name', 'last_name',
+                       'email', 'first_name', 'last_name', 'birth_date',
                        'registration_number', 'phone',
                        'establishment', 'specialty', 'grade', 
                        'sector', 'picture'),
@@ -52,21 +53,27 @@ class UserAdmin(BaseUserAdmin):
 
 
 
-
+"""
 class StudentInline(admin.StackedInline):
+    autocomplete_fields = ['featured_project']
+    min_num = 1
+    max_num = 6
     model = models.User
+    verbose_name = ('Student')
+    verbose_name_plural = ('Students')
+    
+    can_delete = False
     extra = 0
-
+"""
 @admin.register(models.Project)
 class ProjectAdmin(admin.ModelAdmin):
-    inlines = [StudentInline]
+    autocomplete_fields = ['project_leader', 'supervisor', 'co_supervisor', 'participant']
     list_display = ['title','status',
                     'project_leader']
     list_filter = ['status','project_leader']
     list_per_page = 10
     search_fields = ['title','description']
-    #autocomplete_fields = ['']
-
+    
 
    
 

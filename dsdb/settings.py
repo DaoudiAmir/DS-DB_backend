@@ -27,8 +27,9 @@ SECRET_KEY = 'django-insecure-9srw+1#cgl)m&_m&3t&q_dg*8o2ctn9&d2ibv7%$+%hcr5%153
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['f066-105-235-138-170.ngrok-free.app',
+                 '127.0.0.1']
+    
 
 # Application definition
 
@@ -102,9 +103,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'backend',
-        'HOST' : 'localhost',
+        'HOST' : 'localhost',#docker
         'USER' : 'root',
-        'PASSWORD' : 'Be-Strange150902'
+        'PASSWORD' : 'spartaamir12342002'
     }
 }
 
