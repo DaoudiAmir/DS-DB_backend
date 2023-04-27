@@ -2,7 +2,9 @@ from django.contrib import admin
 from django.utils.html import format_html, urlencode
 from django.contrib.contenttypes.admin import GenericTabularInline
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.utils.translation import gettext, gettext_lazy as _
 from . import models
+
 
 @admin.register(models.User)
 class UserAdmin(BaseUserAdmin):
@@ -42,6 +44,9 @@ class UserAdmin(BaseUserAdmin):
     )
     
     readonly_fields = ['picture_preview']
+    list_filter = ('is_staff', 'is_superuser', 'establishment', 'groups')
+    list_display = ('username', 'email', 'first_name', 'establishment', 'is_staff', 'is_active')
+    list_editable = ('is_active', 'is_staff')
     
 
     
@@ -67,10 +72,30 @@ class StudentInline(admin.StackedInline):
 """
 @admin.register(models.Project)
 class ProjectAdmin(admin.ModelAdmin):
+    fieldsets = (
+        
+        (("Project info"), {"fields": ("title","establishment", "project_type", "status",
+                                        "trademark_name", "scientific_product_name",
+                                         "description",
+                                        )}),
+        (
+            ("Project personnel"),
+            {
+                "fields": (
+                    "project_leader",
+                    "supervisor",
+                    "co_supervisor",
+                    "participant",
+                ),
+            },
+        ),
+    
+        (("Important dates"), {"fields": ("deadline",)}),
+    )
     autocomplete_fields = ['project_leader', 'supervisor', 'co_supervisor', 'participant']
     list_display = ['title','status',
                     'project_leader']
-    list_filter = ['status','project_leader']
+    list_filter = ['status','project_leader', 'establishment']
     list_per_page = 10
     search_fields = ['title','description']
     

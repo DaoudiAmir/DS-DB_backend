@@ -58,12 +58,6 @@ class ViewModifyProjectSerializer(serializers.ModelSerializer):
         depth = 1
 
 class CreateProjectSerializer(serializers.ModelSerializer):
-    status = serializers.CharField(read_only= True)
-    project_type = serializers.CharField(read_only= True)
-    project_leader = serializers.StringRelatedField()
-    supervisor = serializers.StringRelatedField()
-    co_supervisor = serializers.StringRelatedField()
-    participant = serializers.StringRelatedField( many=True)
     class Meta:
         model= models.Project
         fields = '__all__'

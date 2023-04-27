@@ -83,15 +83,15 @@ class Project (models.Model):
     
     title = models.CharField(max_length=255)
     establishment = models.CharField(max_length=255)
-    project_type = models.CharField(max_length=50, choices=PROJECT_TYPE_CHOICES)
+    project_type = models.CharField(max_length=50, choices=PROJECT_TYPE_CHOICES, help_text=_('Select the type of the project'),)
     status = models.CharField(max_length=50, choices=PROJECT_STATUS_CHOICES, default=ON_HOLD)
     deposition_date = models.DateTimeField(auto_now_add=True)
     deadline = models.DateField(blank=True , null=True)
     project_leader = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT) #  a Leader(Professor) can have multiple Projects
     supervisor = models.ForeignKey(settings.AUTH_USER_MODEL , on_delete=models.CASCADE , blank=True , null=True , related_name='supervisor_user')
     co_supervisor = models.ForeignKey(settings.AUTH_USER_MODEL , on_delete=models.CASCADE , blank=True , null=True, related_name='co_supervisor_user')
-    trademark_name = models.CharField(max_length=255 , blank=True , null=True)
-    scientific_product_name = models.CharField(max_length=255 , blank=True , null=True)
+    trademark_name = models.CharField(max_length=255 , blank=True , null=True, help_text=_('Enter this if the project type is "un diplôme - une startup"'),)
+    scientific_product_name = models.CharField(max_length=255 , blank=True , null=True, help_text=_('Enter this if the project type is "un diplôme - un Brevet"'),)
     description = models.TextField()
     participant = models.ManyToManyField(User, blank=True , related_name='participants')
     
