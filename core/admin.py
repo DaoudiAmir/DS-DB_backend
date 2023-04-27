@@ -49,15 +49,6 @@ class UserAdmin(BaseUserAdmin):
     list_editable = ('is_active', 'is_staff')
     
 
-    
-    
-    
-
-
-
-
-
-
 """
 class StudentInline(admin.StackedInline):
     autocomplete_fields = ['featured_project']
