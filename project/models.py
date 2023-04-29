@@ -6,6 +6,10 @@ from django.utils.html import mark_safe
 class Etablissement(models.Model):
     name = models.CharField(max_length=255, unique=True)
     description = models.TextField()
+    logo = models.ImageField(upload_to='project/images', null=True, blank=True)
+
+    def logo_preview(self): #new
+            return mark_safe(f'<img src = "{self.logo.url}" width="100px" height= "100px" object-fit="cover"/>')
     
     def __str__(self) -> str:
          return self.name
@@ -39,6 +43,46 @@ class Student(models.Model):
         ordering = ['user__first_name', 'user__last_name'] 
 
 
+class Teacher(models.Model):
+
+    PROFESSEUR = 'Professeur'
+    MAITRE_DE_CONFERENCES_A = 'Maître de conférences A'
+    MAITRE_DE_CONFERENCES_B = 'Maître de conférences B'
+    MAITRE_ASSISTANT_A = 'Maître assistant A'
+    MAITRE_ASSISTANT_B = 'Maître assistant B'
+    
+    GRADE_CHOICES = [
+    (PROFESSEUR,'Professeur'),
+    (MAITRE_DE_CONFERENCES_A,'Maître de conférences A'),
+    (MAITRE_DE_CONFERENCES_B,'Maître de conférences B'),
+    (MAITRE_ASSISTANT_A , 'Maître assistant A'),
+    (MAITRE_ASSISTANT_B , 'Maître assistant B'),
+]
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    etablissement = models.ForeignKey(Etablissement, on_delete=models.CASCADE, blank=True, null=True)
+    num_inscription = models.BigIntegerField(null=True, blank=True)
+    birth_date = models.DateField(null=True, blank=True)
+    phone_number = models.CharField(max_length=50, null=True, blank=True)
+    profile_picture = models.ImageField(upload_to='project/images', null=True, blank=True)
+    grade = models.CharField(max_length=255, choices=GRADE_CHOICES)
+    spécialité = models.CharField(max_length=100, null=True, blank=True)
+    
+    def profile_picture_preview(self): #new
+            return mark_safe(f'<img src = "{self.profile_picture.url}" width="100px" height= "100px" object-fit="cover"/>')
+
+    def __str__(self):
+        return f'{self.user.first_name} {self.user.last_name}'
+     
+    @admin.display(ordering='user__first_name')
+    def first_name(self):
+        return self.user.first_name
+
+    @admin.display(ordering='user__last_name')
+    def last_name(self):
+        return self.user.last_name
+
+    class Meta:
+        ordering = ['user__first_name', 'user__last_name'] 
 
 
 

@@ -12,13 +12,23 @@ class StudentAdmin(admin.ModelAdmin):
     ordering = ['user__first_name', 'user__last_name']
     search_fields = ['first_name', 'last_name', 'num_inscription']
 
+
+@admin.register(models.Teacher)
+class TeacherAdmin(admin.ModelAdmin):
+    list_display = ['first_name', 'last_name',
+                    'num_inscription',]
+    list_per_page = 10
+    list_select_related = ['user']
+    ordering = ['user__first_name', 'user__last_name']
+    search_fields = ['first_name', 'last_name', 'num_inscription']
+
     
 class StudentInline(admin.StackedInline):
     model = models.Student
 
 @admin.register(models.Etablissement)
 class EtablissementAdmin(admin.ModelAdmin):
-    list_display = ['name']
+    list_display = ['name', 'logo_preview']
     inlines = [StudentInline]
 
 """

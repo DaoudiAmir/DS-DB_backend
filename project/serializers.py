@@ -27,7 +27,7 @@ class CreateProjectSerializer(serializers.ModelSerializer):
 class EtablissementSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Etablissement
-        fields = ['id', 'name', 'description']
+        fields = ['id', 'logo', 'name', 'description']
 
 
 class StudentSerializer(serializers.ModelSerializer):
@@ -46,4 +46,26 @@ class BaseStudentSerializer(serializers.ModelSerializer):
         model = models.Student
         fields = ['id', 'user_id', 'num_inscription',
                   'birth_date', 'phone_number', 'profile_picture',
-                  'filiére', 'spécialité']        
+                  'filiére', 'spécialité'] 
+
+
+
+
+
+class TeacherSerializer(serializers.ModelSerializer):
+    user_id = serializers.IntegerField(read_only=True)
+    
+    
+    class Meta:
+        model = models.Teacher
+        fields = ['id', 'user_id','etablissement', 'num_inscription',
+                  'birth_date', 'phone_number', 'profile_picture',
+                  'grade', 'spécialité']
+        
+class BaseTeacherSerializer(serializers.ModelSerializer):
+    user_id = serializers.IntegerField(read_only=True)
+    class Meta:
+        model = models.Teacher
+        fields = ['id', 'user_id', 'num_inscription',
+                  'birth_date', 'phone_number', 'profile_picture',
+                  'grade', 'spécialité'] 

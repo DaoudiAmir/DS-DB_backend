@@ -64,7 +64,29 @@ class StudentViewSet(ModelViewSet):
 
 
 
+class TeacherViewSet(ModelViewSet):
+    queryset = models.Teacher.objects.select_related('etablissement').all()
+    serializer_class = serializers.TeacherSerializer
+    permission_classes = [IsAdminUser]
     
+    @action(detail=False, methods=['GET', 'PUT', 'PATCH'], permission_classes=[IsAuthenticated])
+    def me(self, request):
+        teacher = models.Teacher.objects.get(
+            user_id=request.user.id
+        )
+        if request.method == 'GET':
+            serializer = serializers.TeacherSerializer(teacher)
+            return Response(serializer.data)
+        elif request.method == 'PUT':
+            serializer = serializers.TeacherSerializer(teacher, data=request.data)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            return Response(serializer.data)
+        elif request.method == 'PATCH':
+            serializer = serializers.BaseTeacherSerializer(teacher, data=request.data)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            return Response(serializer.data)
     
     
         
