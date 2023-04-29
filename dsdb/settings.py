@@ -27,8 +27,7 @@ SECRET_KEY = 'django-insecure-9srw+1#cgl)m&_m&3t&q_dg*8o2ctn9&d2ibv7%$+%hcr5%153
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['93cb-41-111-227-1.ngrok-free.app',
-                 '127.0.0.1']
+ALLOWED_HOSTS = ['*']
     
 
 # Application definition
@@ -184,21 +183,21 @@ DJOSER = {
         'current_user' : 'core.serializers.UserSerializer',
     }
 }
-"""
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'localhost'
 EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = ''
-EMAIL_PORT = 5000
+EMAIL_PORT = 2525
 EMAIL_USE_TLS = False
 DEFAULT_FROM_EMAIL = 'DSDB@esi-sba.dz'
-"""
+
 """
 ADMINS = [
     ('as.daoudi', 'as.daoudi@esi-sba.dz'),
 ]"""
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 SITE_NAME = "DS-DB"
 
 

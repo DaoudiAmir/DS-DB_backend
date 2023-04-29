@@ -11,16 +11,12 @@ class UserAdmin(BaseUserAdmin):
     fieldsets = (
         (None, {"fields": ("username", "password")}),
         (("Personal info"), {"fields": ("first_name", "last_name", "email",
-                                        "birth_date", "registration_number", "phone",
-                                        "establishment", "specialty",
-                                        "grade", "sector", "picture",
-                                        "picture_preview")}),
+                            )}),
         (
             ("Permissions"),
             {
                 "fields": (
-                    "is_student",
-                    "is_teacher",
+                    "type",
                     "is_active",
                     "is_staff",
                     "is_superuser",
@@ -34,18 +30,14 @@ class UserAdmin(BaseUserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('is_student', 'is_teacher', 'username',
+            'fields': ('type', 'username',
                        'password1', 'password2',
-                       'email', 'first_name', 'last_name', 'birth_date',
-                       'registration_number', 'phone',
-                       'establishment', 'specialty', 'grade', 
-                       'sector', 'picture'),
+                       'email', 'first_name', 'last_name',),
         }),
     )
     
-    readonly_fields = ['picture_preview']
-    list_filter = ('is_staff', 'is_superuser', 'establishment', 'groups')
-    list_display = ('username', 'email', 'first_name', 'establishment', 'is_staff', 'is_active')
+    list_filter = ('is_staff', 'is_superuser', 'type', 'groups')
+    list_display = ('username', 'email', 'first_name', 'type', 'is_staff', 'is_active')
     list_editable = ('is_active', 'is_staff')
     
 
@@ -60,7 +52,7 @@ class StudentInline(admin.StackedInline):
     
     can_delete = False
     extra = 0
-"""
+
 @admin.register(models.Project)
 class ProjectAdmin(admin.ModelAdmin):
     fieldsets = (
@@ -90,7 +82,7 @@ class ProjectAdmin(admin.ModelAdmin):
     list_per_page = 10
     search_fields = ['title','description']
     
-
+"""
    
 
 

@@ -2,12 +2,12 @@ from django.core.mail import send_mass_mail, mail_admins, BadHeaderError, EmailM
 from django.shortcuts import render
 from templated_mail.mail import BaseEmailMessage
 from djoser.views import UserViewSet
-
+from djoser.views import UserViewSet as BaseUserViewSet
+"""
 from rest_framework.viewsets import ModelViewSet , GenericViewSet
 from rest_framework.permissions import AllowAny, DjangoModelPermissions, DjangoModelPermissionsOrAnonReadOnly, IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.decorators import action, permission_classes
-from djoser.views import UserViewSet as BaseUserViewSet
 from .models import User
 from django.conf import settings
 from .models import Project
@@ -26,7 +26,7 @@ class ProjectViewSet(ModelViewSet):
         return ViewModifyProjectSerializer
     
         
-    
+"""    
         
 
 
