@@ -188,7 +188,7 @@ class Project (models.Model):
     project_type = models.OneToOneField(ProjectType, on_delete=models.PROTECT)
     établissement = models.ForeignKey(Etablissement, on_delete=models.CASCADE)
     status = models.CharField(max_length=50, choices=PROJECT_STATUS_CHOICES, default=ON_HOLD)
-    period = models.OneToOneField(Period, on_delete=models.PROTECT)
+    period = models.ForeignKey(Period, on_delete=models.PROTECT)
     deposition_date = models.DateField(auto_now_add=True)
     porteur_student = models.OneToOneField(Student, on_delete=models.CASCADE, blank=True, null=True)
     porteur_teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, blank=True, null=True)
@@ -247,8 +247,8 @@ class DecisionOfCommittee(models.Model):
 class ProjectValidation(models.Model):
     
     project = models.OneToOneField(Project, on_delete=models.CASCADE, related_name='project_to_validate')
-    committee = models.OneToOneField(ValidationCommittee, on_delete=models.CASCADE, related_name='project_validation_committe')
-    decision = models.OneToOneField(DecisionOfCommittee, on_delete=models.PROTECT, related_name='project_decision') #from the state of this we change the status of the project
+    committee = models.ForeignKey(ValidationCommittee, on_delete=models.CASCADE, related_name='project_validation_committe')
+    decision = models.ForeignKey(DecisionOfCommittee, on_delete=models.PROTECT, related_name='project_decision') #from the state of this we change the status of the project
     remarques = models.TextField(blank=True)
     validation_date = models.DateField(auto_now=True)
     
