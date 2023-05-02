@@ -10,7 +10,21 @@ from . import views
 router = routers.DefaultRouter()
 router.register('students', views.StudentViewSet, basename='students')
 router.register('teachers', views.TeacherViewSet, basename='teachers')
-router.register('etablissements', views.EtablissementViewSet)
+router.register('periods', views.PeriodViewSet)
+##### project deposition
+router.register('project-invitations', views.ProjectInvitationViewSet, basename='project-invitations')
+router.register('project-teams', views.ProjectTeamViewSet)
+router.register('management-teams', views.ManagementTeamViewSet)
+router.register('project-types', views.ProjectTypeViewSet)
+router.register('projects', views.ProjectViewSet)
+#### project Validation
+router.register('validation-committees', views.ValidationCommitteeViewSet)
+router.register('decision-of-committees', views.DecisionOfCommitteeViewSet)
+router.register('project-validations', views.ProjectValidationViewSet)
+#### gestion recours
+router.register('recours', views.RecoursViewSet)
+router.register('recours-validations', views.RecoursValidationViewSet)
+
 
 
 urlpatterns = router.urls

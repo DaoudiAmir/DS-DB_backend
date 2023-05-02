@@ -205,7 +205,7 @@ class Project (models.Model):
 class ValidationCommittee(models.Model):
  
     description = models.TextField(blank=True)
-    membres = models.ManyToManyField(Teacher) # the president is included in the membres but should have the field "is_president_of_comitte"
+    members = models.ManyToManyField(Teacher) # the president is included in the membres but should have the field "is_president_of_comitte"
                                               # in his teacher profile set to true so we dont need a new profile, neither do we need to inctanciate the teachers class twice in the same table
                                               
     établissement = models.OneToOneField(Etablissement, on_delete=models.CASCADE) 
@@ -238,7 +238,7 @@ class DecisionOfCommittee(models.Model):
     
     
     title = models.CharField(max_length=255, choices=COMMITTE_DECISION_CHOICES)
-    decription = models.TextField(blank=True)
+    description = models.TextField(blank=True)
     
     def __str__(self) -> str:
          return self.title

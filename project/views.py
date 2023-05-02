@@ -89,7 +89,78 @@ class TeacherViewSet(ModelViewSet):
             return Response(serializer.data)
     
     
+######## Project Deposition
+
+
+class PeriodViewSet(ModelViewSet):
+    http_method_names = ['get', 'head', 'options'] 
+    queryset = models.Period.objects.all()  
+    serializer_class = serializers.PeriodSerializer
+    
+    
+class ProjectInvitationViewSet(ModelViewSet):
+    http_method_names = ['get', 'head', 'options'] 
+    queryset = models.ProjectInvitation.objects.all()
+    serializer_class = serializers.ProjectInvitationSerializer
+    
+    
+class ProjectTeamViewSet(ModelViewSet):
+    http_method_names = ['get', 'head', 'options'] 
+    queryset = models.ProjectTeam.objects.all()
+    serializer_class = serializers.ProjectTeamSerializer
+    
+    
+class ManagementTeamViewSet(ModelViewSet):
+    http_method_names = ['get', 'head', 'options'] 
+    queryset = models.ManagementTeam.objects.all()
+    serializer_class = serializers.ManagementTeamSerializer
+    
+class ProjectTypeViewSet(ModelViewSet):
+    http_method_names = ['get', 'head', 'options'] 
+    queryset = models.ProjectType.objects.all()
+    serializer_class = serializers.ProjectTypeSerializer
+    
+    
+class ProjectViewSet(ModelViewSet):
+    http_method_names = ['get', 'head', 'options'] 
+    queryset = models.Project.objects.all()
+    serializer_class = serializers.ProjectSerializer
+    
+    
+######## Project Validation
+
+
+class ValidationCommitteeViewSet(ModelViewSet):
+    http_method_names = ['get', 'head', 'options'] 
+    queryset = models.ValidationCommittee.objects.all()
+    serializer_class = serializers.ValidationCommitteeSerializer
+    
+class DecisionOfCommitteeViewSet(ModelViewSet):
+    http_method_names = ['get', 'head', 'options'] 
+    queryset = models.DecisionOfCommittee.objects.all()
+    serializer_class = serializers.DecisionOfCommitteeSerializer
+    
+    
+class ProjectValidationViewSet(ModelViewSet):
+    http_method_names = ['get', 'head', 'options'] 
+    queryset = models.ProjectValidation.objects.all()
+    serializer_class = serializers.ProjectValidationSerializer
+    
+
+#### gestion recours
+
+class RecoursViewSet(ModelViewSet):
+    http_method_names = ['get', 'head', 'options'] 
+    queryset = models.Recours.objects.all()
+    serializer_class = serializers.RecoursSerializer
+
+
+class RecoursValidationViewSet(ModelViewSet):
+    http_method_names = ['get', 'head', 'options'] 
+    queryset = models.RecoursValidation.objects.all()
+    serializer_class = serializers.RecoursValidationSerializer    
         
+            
 
 
 
