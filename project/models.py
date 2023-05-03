@@ -103,9 +103,23 @@ class Period(models.Model):
         (DEPOT_RECOURS, 'période de dépôt des recours'),
         (VALIDATION_PROJET_APRES_RECOURS, 'période da validation des projets aprés recours')
     ]
+
+    SOUMISSION_PROJET_DESCRIPTION = 'lors de cette période, les porteurs de projet peuvent déposer un projet, consulter un projet, modifier un projet ou retirer un projet.'
+    VALIDATION_PROJET_DESCRIPTION = 'lors de cette période, le responsable de l incubateur peut accepter un projet, rejeter un projet ou accepter un projet « sous-réserves ». Pendant cette période, le porteur de projet ne peut que consulter son (ses) projet(s). Il n a pas le droit de déposer un nouveau projet ni de modifier ou retirer un projet.'
+    DEPOT_RECOURS_DESCRIPTION = 'lors de cette période, seuls les porteurs de projet ayant une acceptation « sous-réserves » peuvent modifier un projet. Les modifications peuvent porter sur toutes les rubriques du projet.'
+    VALIDATION_PROJET_APRES_RECOURS_DESCRIPTION = 'lors de cette période, le responsable de l incubateur peut accepter un projet ou rejeter un projet. Pendant cette période, le porteur de projet ne peut que consulter son (ses) projet(s). Il n’a pas le droit de déposer un nouveau projet ni de modifier ou retirer un projet.'
+    
+
+    PERIOD_DESCRIPTION_CHOICES = [
+         (SOUMISSION_PROJET_DESCRIPTION, 'lors de cette période, les porteurs de projet peuvent déposer un projet, consulter un projet, modifier un projet ou retirer un projet.'),
+         (VALIDATION_PROJET_DESCRIPTION, 'lors de cette période, le responsable de l incubateur peut accepter un projet, rejeter un projet ou accepter un projet « sous-réserves ». Pendant cette période, le porteur de projet ne peut que consulter son (ses) projet(s). Il n a pas le droit de déposer un nouveau projet ni de modifier ou retirer un projet.'),
+         (DEPOT_RECOURS_DESCRIPTION, 'lors de cette période, seuls les porteurs de projet ayant une acceptation « sous-réserves » peuvent modifier un projet. Les modifications peuvent porter sur toutes les rubriques du projet.'),
+         (VALIDATION_PROJET_APRES_RECOURS_DESCRIPTION, 'lors de cette période, le responsable de l incubateur peut accepter un projet ou rejeter un projet. Pendant cette période, le porteur de projet ne peut que consulter son (ses) projet(s). Il n’a pas le droit de déposer un nouveau projet ni de modifier ou retirer un projet.')
+         
+    ]
     
     name = models.CharField(max_length=255, choices= PERIOD_CHOICES)
-    description = models.TextField(blank=True)
+    description = models.TextField(blank=True , choices=PERIOD_DESCRIPTION_CHOICES)
     date_début = models.DateField()
     date_fin = models.DateField()
     
