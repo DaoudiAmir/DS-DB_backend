@@ -103,6 +103,7 @@ class Period(models.Model):
         (DEPOT_RECOURS, 'période de dépôt des recours'),
         (VALIDATION_PROJET_APRES_RECOURS, 'période da validation des projets aprés recours')
     ]
+
     
     name = models.CharField(max_length=255, choices= PERIOD_CHOICES)
     description = models.TextField(blank=True)

@@ -105,7 +105,7 @@ DATABASES = {
         'NAME': 'backend',
         'HOST' : 'localhost',#docker
         'USER' : 'root',
-        'PASSWORD' : 'spartaamir12342002'
+        'PASSWORD' : 'Be-Strange150902'
     }
 }
 
