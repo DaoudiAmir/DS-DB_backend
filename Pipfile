@@ -17,6 +17,7 @@ django-rest-auth = "*"
 pillow = "*"
 drf-nested-routers = "*"
 django-jazzmin = "*"
+whitenoise = "*"
 
 [dev-packages]
 
