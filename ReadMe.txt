@@ -33,3 +33,5 @@ Notes:
     
 Important Note : to clone the repository properly and not encounter any issues running the project with docker, use this commande :
                  "git clone https://github.com/DaoudiAmir/DS-DB_backend.git --config core.autocrlf=input"
+
+to start the server using waitress : waitress-serve --listen=*:8000 dsdb.wsgi:application

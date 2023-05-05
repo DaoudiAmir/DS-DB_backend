@@ -18,6 +18,8 @@ pillow = "*"
 drf-nested-routers = "*"
 django-jazzmin = "*"
 whitenoise = "*"
+gunicorn = "*"
+waitress = "*"
 
 [dev-packages]
 

@@ -15,20 +15,13 @@ import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-9srw+1#cgl)m&_m&3t&q_dg*8o2ctn9&d2ibv7%$+%hcr5%153'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['*']
-    
 
 # Application definition
 
@@ -97,18 +90,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'dsdb.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'backend',
-        'HOST' : 'localhost',#docker
-        'USER' : 'root',
-        'PASSWORD' : 'spartaamir12342002'
-    }
-}
 
 
 # Password validation
@@ -356,7 +338,7 @@ JAZZMIN_UI_TWEAKS = {
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
-    'handlers':{
+    'handlers': {
         'console': {
             'class': 'logging.StreamHandler'
         },
@@ -369,13 +351,13 @@ LOGGING = {
     'loggers': {
         '': {
             'handlers': ['console', 'file'],
-            'level': 'INFO',
+            'level': os.environ.get('DJANGO_LOG_LEVEL', 'INFO')
         }
     },
-    'formatter': {
+    'formatters': {
         'verbose': {
             'format': '{asctime} ({levelname}) - {name} - {message}',
-            'style': '{',
+            'style': '{' 
         }
     }
 }

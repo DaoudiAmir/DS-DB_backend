@@ -4,7 +4,7 @@ from requests import request
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainSerializer as BaseTokenObtainSerializer, TokenObtainPairSerializer as BaseTokenObtainPairSerializer
 
-from dsdb.settings import MEDIA_URL
+from dsdb.settings.common import MEDIA_URL
 from . import models
 
 
