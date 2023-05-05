@@ -38,7 +38,7 @@ class EtablissementViewSet(ModelViewSet):
     
     
 class StudentViewSet(ModelViewSet):
-    queryset = models.Student.objects.select_related('etablissement').all()
+    queryset = models.Student.objects.select_related('établissement').all()
     serializer_class = serializers.StudentSerializer
     permission_classes = [IsAdminUser]
     
@@ -65,7 +65,7 @@ class StudentViewSet(ModelViewSet):
 
 
 class TeacherViewSet(ModelViewSet):
-    queryset = models.Teacher.objects.select_related('etablissement').all()
+    queryset = models.Teacher.objects.select_related('établissement').all()
     serializer_class = serializers.TeacherSerializer
     permission_classes = [IsAdminUser]
     

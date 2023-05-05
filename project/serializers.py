@@ -36,7 +36,7 @@ class StudentSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = models.Student
-        fields = ['id', 'user_id','etablissement', 'num_inscription',
+        fields = ['id', 'user_id','établissement', 'num_inscription',
                   'birth_date', 'phone_number', 'profile_picture',
                   'filiére', 'spécialité']
         
@@ -58,7 +58,7 @@ class TeacherSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = models.Teacher
-        fields = ['id', 'user_id','etablissement', 'num_inscription',
+        fields = ['id', 'user_id','établissement', 'num_inscription',
                   'birth_date', 'phone_number', 'profile_picture',
                   'grade', 'spécialité']
         
