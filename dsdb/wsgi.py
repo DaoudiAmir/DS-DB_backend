@@ -15,4 +15,3 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'dsdb.settings.dev')
 
 application = get_wsgi_application()
 
-app = application

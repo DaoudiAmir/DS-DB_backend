@@ -21,6 +21,7 @@ whitenoise = "*"
 gunicorn = "*"
 waitress = "*"
 django-dotenv = "*"
+dj-database-url = "*"
 
 [dev-packages]
 
