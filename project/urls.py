@@ -11,6 +11,7 @@ router = routers.DefaultRouter()
 router.register('students', views.StudentViewSet, basename='students')
 router.register('teachers', views.TeacherViewSet, basename='teachers')
 router.register('periods', views.PeriodViewSet)
+router.register('etablissement', views.EtablissementViewSet)
 ##### project deposition
 router.register('project-invitations', views.ProjectInvitationViewSet, basename='project-invitations')
 router.register('project-teams', views.ProjectTeamViewSet)
