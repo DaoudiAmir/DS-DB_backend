@@ -62,6 +62,7 @@ class Teacher(models.Model):
 ]
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     établissement = models.ForeignKey(Etablissement, on_delete=models.CASCADE, blank=True, null=True)
+    num_inscription = models.BigIntegerField(null=True, blank=True)
     is_president_of_commité = models.BooleanField(_('Présidant de l\'incubateur ?'), default=False, help_text=_('Si cet enseignant est un présidant dans une comité'), ) #new
     is_membre_of_commité = models.BooleanField(_('Membre de la commité ?'), default=False, help_text=_('Si cet enseignant est un membre dans une comité'), )#new
     matricule = models.BigIntegerField(null=True, blank=True)
