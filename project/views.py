@@ -2,6 +2,8 @@ from django.core.mail import send_mass_mail, mail_admins, BadHeaderError, EmailM
 from django.shortcuts import render
 from templated_mail.mail import BaseEmailMessage
 from djoser.views import UserViewSet
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import SearchFilter, OrderingFilter
 
 from rest_framework.viewsets import ModelViewSet , GenericViewSet
 from rest_framework.permissions import AllowAny, DjangoModelPermissions, DjangoModelPermissionsOrAnonReadOnly, IsAdminUser, IsAuthenticated
@@ -10,7 +12,7 @@ from rest_framework.decorators import action, permission_classes
 from djoser.views import UserViewSet as BaseUserViewSet
 from django.conf import settings
 
-from . import serializers, models
+from . import serializers, models, permissions
 
 
 """
@@ -30,6 +32,8 @@ class EtablissementViewSet(ModelViewSet):
     http_method_names = ['get', 'post', 'patch', 'delete', 'head', 'options']
     queryset = models.Etablissement.objects.all()
     serializer_class = serializers.EtablissementSerializer
+    filter_backends = [DjangoFilterBackend, SearchFilter]
+    search_fields = ['name']
     
     def get_permissions(self):
         if self.request.method in ['POST','PATCH', 'DELETE']:
@@ -40,7 +44,10 @@ class EtablissementViewSet(ModelViewSet):
 class StudentViewSet(ModelViewSet):
     queryset = models.Student.objects.select_related('établissement').all()
     serializer_class = serializers.StudentSerializer
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsAuthenticated]
+    filter_backends = [DjangoFilterBackend, SearchFilter]
+    filterset_fields = ['établissement_id']
+    search_fields = ['user__email']
     
     @action(detail=False, methods=['GET', 'PUT', 'PATCH'], permission_classes=[IsAuthenticated])
     def me(self, request):
@@ -67,7 +74,11 @@ class StudentViewSet(ModelViewSet):
 class TeacherViewSet(ModelViewSet):
     queryset = models.Teacher.objects.select_related('établissement').all()
     serializer_class = serializers.TeacherSerializer
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsAuthenticated]
+    filter_backends = [DjangoFilterBackend, SearchFilter]
+    filterset_fields = ['établissement_id']
+    search_fields = ['user__email']
+    
     
     @action(detail=False, methods=['GET', 'PUT', 'PATCH'], permission_classes=[IsAuthenticated])
     def me(self, request):
@@ -93,72 +104,136 @@ class TeacherViewSet(ModelViewSet):
 
 
 class PeriodViewSet(ModelViewSet):
-    http_method_names = ['get', 'head', 'options'] 
     queryset = models.Period.objects.all()  
     serializer_class = serializers.PeriodSerializer
+    filter_backends = [SearchFilter, OrderingFilter]
+    search_fields = ['name', 'description']
+    ordering_fields = ['date_début', 'date_fin']
+    
+
     
     
 class ProjectInvitationViewSet(ModelViewSet):
-    http_method_names = ['get', 'head', 'options'] 
     queryset = models.ProjectInvitation.objects.all()
     serializer_class = serializers.ProjectInvitationSerializer
+    filter_backends = [SearchFilter]
+    search_fields = ['email']
     
     
 class ProjectTeamViewSet(ModelViewSet):
-    http_method_names = ['get', 'head', 'options'] 
     queryset = models.ProjectTeam.objects.all()
-    serializer_class = serializers.ProjectTeamSerializer
+    filter_backends = [DjangoFilterBackend, SearchFilter]
+    filterset_fields = ['team_leader', 'participants']
+    search_fields = ['name']
+    
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return serializers.CreateProjectTeamSerializer
+        elif self.request.method in ['PUT', 'PATCH', 'GET', 'HEAD', 'OPTIONS']:
+            return serializers.ProjectTeamSerializer
+        
     
     
 class ManagementTeamViewSet(ModelViewSet):
-    http_method_names = ['get', 'head', 'options'] 
     queryset = models.ManagementTeam.objects.all()
-    serializer_class = serializers.ManagementTeamSerializer
+    filter_backends = [DjangoFilterBackend, SearchFilter]
+    filterset_fields = ['superviseur', 'co_superviseur']
+    search_fields = ['superviseur__user__email', 'co_superviseur__user__email']
+    
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return serializers.CreateManagementTeamSerializer
+        elif self.request.method in ['PUT', 'PATCH', 'GET', 'HEAD', 'OPTIONS']:
+            return serializers.ManagementTeamSerializer
     
 class ProjectTypeViewSet(ModelViewSet):
-    http_method_names = ['get', 'head', 'options'] 
     queryset = models.ProjectType.objects.all()
     serializer_class = serializers.ProjectTypeSerializer
+    filter_backends = [SearchFilter]
+    search_fields = ['type', 'intitulé_idée_innovante']
     
     
 class ProjectViewSet(ModelViewSet):
-    http_method_names = ['get', 'head', 'options'] 
     queryset = models.Project.objects.all()
-    serializer_class = serializers.ProjectSerializer
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filterset_fields = ['établissement_id', 'period_id', 'porteur_student_id',
+                        'porteur_teacher_id', 'project_team_id', 'équipe_encadrement_id']
+    search_fields = ['title', 'status', 'résumé', 'porteur_student__user__email',
+                     'porteur_teacher__user__email', 'project_team__team_leader__user__username',
+                     'project_team__team_leader__user__email',
+                     'équipe_encadrement__superviseur__user__email',
+                     'équipe_encadrement__co_superviseur__user__email',]
+    ordering_fields = ['deposition_date']
+    
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return serializers.CreateProjectSerializer
+        elif self.request.method in ['PUT', 'PATCH', 'GET', 'HEAD', 'OPTIONS']:
+            return serializers.ProjectSerializer
     
     
 ######## Project Validation
 
 
 class ValidationCommitteeViewSet(ModelViewSet):
-    http_method_names = ['get', 'head', 'options'] 
     queryset = models.ValidationCommittee.objects.all()
-    serializer_class = serializers.ValidationCommitteeSerializer
+    permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
+    filter_backends = [DjangoFilterBackend, SearchFilter]
+    filterset_fields = ['établissement_id', 'members']
+    search_fields = ['établissement__name']
+    
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return serializers.CreateValidationCommitteeSerializer
+        elif self.request.method in ['PUT', 'PATCH', 'GET', 'HEAD', 'OPTIONS']:
+            return serializers.ValidationCommitteeSerializer
     
 class DecisionOfCommitteeViewSet(ModelViewSet):
-    http_method_names = ['get', 'head', 'options'] 
+    
+    permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
     queryset = models.DecisionOfCommittee.objects.all()
     serializer_class = serializers.DecisionOfCommitteeSerializer
     
     
 class ProjectValidationViewSet(ModelViewSet):
-    http_method_names = ['get', 'head', 'options'] 
     queryset = models.ProjectValidation.objects.all()
-    serializer_class = serializers.ProjectValidationSerializer
+    permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filterset_fields = ['project_id', 'committee_id', 'decision_id']
+    search_fields = ['project__établissement__name', 'project__status']
+    ordering_fields = ['validation_date']
+    
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return serializers.CreateProjectValidationSerializer
+        elif self.request.method in ['PUT', 'PATCH', 'GET', 'HEAD', 'OPTIONS']:
+            return serializers.ProjectValidationSerializer
     
 
 #### gestion recours
 
 class RecoursViewSet(ModelViewSet):
-    http_method_names = ['get', 'head', 'options'] 
+
     queryset = models.Recours.objects.all()
     serializer_class = serializers.RecoursSerializer
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filterset_fields = ['period_id']
+    search_fields = ['title']
+    ordering_fields = ['date_deposition']
 
 
 class RecoursValidationViewSet(ModelViewSet):
-    http_method_names = ['get', 'head', 'options'] 
     queryset = models.RecoursValidation.objects.all()
-    serializer_class = serializers.RecoursValidationSerializer    
+    permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filterset_fields = ['recours_id', 'validated_project_id']
+    search_fields = ['validated_project__project__title']
+    ordering_fields = ['recours__date_deposition']
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return serializers.CreateRecoursValidationSerializer
+        elif self.request.method in ['PUT', 'PATCH', 'GET', 'HEAD', 'OPTIONS']:
+            return serializers.RecoursValidationSerializer   
         
             
 

@@ -136,7 +136,6 @@ class ProjectInvitation(models.Model):  #pour invité les membres
 class ProjectTeam(models.Model):
     name = models.CharField(max_length=255)
     team_leader = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='chef_équipe')
-    members = models.ManyToManyField(ProjectInvitation)
     participants = models.ManyToManyField(Student, blank=True )
     
     
@@ -146,7 +145,7 @@ class ProjectTeam(models.Model):
 class ManagementTeam(models.Model):
     name = models.CharField(max_length=255)
     superviseur = models.ForeignKey(Teacher, on_delete=models.PROTECT, related_name='superviseur')
-    co_superviseur = models.OneToOneField(ProjectInvitation, on_delete=models.PROTECT, blank=True, null=True, related_name='co_superviseur')
+    co_superviseur = models.ForeignKey(Teacher, on_delete=models.PROTECT, blank=True, null=True, related_name='co_superviseur')
     
     def __str__(self) -> str:
          return f'{self.name}: {self.superviseur.user.first_name}'
@@ -194,7 +193,7 @@ class Project (models.Model):
     porteur_student = models.OneToOneField(Student, on_delete=models.CASCADE, blank=True, null=True)
     porteur_teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, blank=True, null=True)
     project_team = models.OneToOneField(ProjectTeam, on_delete=models.PROTECT , related_name='équipe_projet')
-    équipe_encadrement = models.OneToOneField(ManagementTeam, on_delete=models.PROTECT, related_name='équipe_encadrement')
+    équipe_encadrement = models.ForeignKey(ManagementTeam, on_delete=models.PROTECT, related_name='équipe_encadrement')
 
     résumé = models.TextField(blank=True)
    
@@ -267,6 +266,7 @@ class Recours(models.Model):
     title = models.CharField(max_length=255)
     date_deposition = models.DateTimeField(auto_now=True)
     period = models.ForeignKey(Period, on_delete=models.CASCADE, related_name='period_recours')
+    
     
     
     def __str__(self) -> str:

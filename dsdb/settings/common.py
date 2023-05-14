@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     #'django.contrib.sites',
+    'django_filters',
     'corsheaders',
     'debug_toolbar',
     # auth api
@@ -143,6 +144,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+    #'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.IsAuthenticated', ],
 }
 
 #REST_USE_JWT = True
@@ -191,7 +193,8 @@ DOMAIN = "localhost:3000"
 
 SIMPLE_JWT = {
    'AUTH_HEADER_TYPES': ('JWT',),
-   'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+   'ACCESS_TOKEN_LIFETIME': timedelta(days=30),
+   'REFRESH_TOKEN_LIFETIME': timedelta(days=360),
    'BLACKLIST_AFTER_ROTATION': False,
    
 }

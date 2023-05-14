@@ -17,7 +17,7 @@ router.register('project-invitations', views.ProjectInvitationViewSet, basename=
 router.register('project-teams', views.ProjectTeamViewSet)
 router.register('management-teams', views.ManagementTeamViewSet)
 router.register('project-types', views.ProjectTypeViewSet)
-router.register('projects', views.ProjectViewSet)
+router.register('projects', views.ProjectViewSet, basename='projects')
 #### project Validation
 router.register('validation-committees', views.ValidationCommitteeViewSet)
 router.register('decision-of-committees', views.DecisionOfCommitteeViewSet)

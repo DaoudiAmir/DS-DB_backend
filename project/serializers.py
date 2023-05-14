@@ -58,15 +58,15 @@ class TeacherSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = models.Teacher
-        fields = ['id', 'user_id','établissement', 'num_inscription',
+        fields = ['id', 'user_id','établissement', 'matricule',
                   'birth_date', 'phone_number', 'profile_picture',
-                  'grade', 'spécialité']
+                  'grade', 'spécialité', 'is_president_of_commité', 'is_membre_of_commité']
         
 class BaseTeacherSerializer(serializers.ModelSerializer):
     user_id = serializers.IntegerField(read_only=True)
     class Meta:
         model = models.Teacher
-        fields = ['id', 'user_id', 'num_inscription',
+        fields = ['id', 'user_id', 'matricule',
                   'birth_date', 'phone_number', 'profile_picture',
                   'grade', 'spécialité'] 
         
@@ -78,24 +78,26 @@ class PeriodSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = models.Period
-        fields = ['id', 'name', 'date_début', 'date_fin']
+        fields = '__all__'
         
         
 class ProjectInvitationSerializer(serializers.ModelSerializer):
     #### this api is responsible of sending emails to users (invitations)
     class Meta:
         model = models.ProjectInvitation
-        fields = ['id', 'name' , 'description', 'email'] 
+        fields = '__all__'
                         
 class ProjectTeamSerializer(serializers.ModelSerializer):
     team_leader = serializers.StringRelatedField()
-    
-   
      ### must include select related 'Student'
     
     class Meta:
         model = models.ProjectTeam
-        fields = ['name', 'team_leader', 'members', 'participants']
+        fields = '__all__'
+class CreateProjectTeamSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.ProjectTeam
+        fields = '__all__'
         
         
 class ManagementTeamSerializer(serializers.ModelSerializer):
@@ -104,13 +106,18 @@ class ManagementTeamSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = models.ManagementTeam
-        fields = ['name', 'superviseur', 'co_superviseur']
+        fields = '__all__'
+class CreateManagementTeamSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = models.ManagementTeam
+        fields = '__all__'
         
 class ProjectTypeSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = models.ProjectType
-        fields = ['id', 'type', 'intitulé_idée_innovante']
+        fields = '__all__'
         
         
         
@@ -130,6 +137,15 @@ class ProjectSerializer(serializers.ModelSerializer):
                   'period', 'deposition_date', 'porteur_student', 
                   'porteur_teacher', 'project_team', 'équipe_encadrement',
                   'résumé']      
+class CreateProjectSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Project
+        fields = ['id', 'project_type', 'établissement', 'status', 
+                  'period', 'deposition_date', 'porteur_student', 
+                  'porteur_teacher', 'project_team', 'équipe_encadrement',
+                  'résumé']      
+        
         
         
         
@@ -140,7 +156,12 @@ class ValidationCommitteeSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = models.ValidationCommittee
-        fields = ['id', 'description', 'établissement', 'members']    
+        fields = '__all__'   
+class CreateValidationCommitteeSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = models.ValidationCommittee
+        fields = '__all__'   
         
         
 class DecisionOfCommitteeSerializer(serializers.ModelSerializer):
@@ -159,20 +180,30 @@ class ProjectValidationSerializer(serializers.ModelSerializer):
         model = models.ProjectValidation
         fields = ['id', 'project', 'committee', 'decision',
                   'remarques', 'validation_date']               
+class CreateProjectValidationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.ProjectValidation
+        fields = ['id', 'project', 'committee', 'decision',
+                  'remarques', 'validation_date']               
         
         
 ####### gestion recours 
 
 class RecoursSerializer(serializers.ModelSerializer):
-    period = serializers.StringRelatedField()
     
     class Meta:
         model = models.Recours
-        fields = ['id', 'title', 'date_deposition', 'period']
+        fields = '__all__'
         
 class RecoursValidationSerializer(serializers.ModelSerializer):
     recours = serializers.StringRelatedField()
     
     class Meta:
         model = models.RecoursValidation
-        fields = ['id', 'recours', 'validated_project']
+        fields = '__all__'
+class CreateRecoursValidationSerializer(serializers.ModelSerializer):
+   
+    
+    class Meta:
+        model = models.RecoursValidation
+        fields = '__all__'

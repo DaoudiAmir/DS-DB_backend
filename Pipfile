@@ -22,6 +22,7 @@ gunicorn = "*"
 waitress = "*"
 django-dotenv = "*"
 dj-database-url = "*"
+django-filter = "*"
 
 [dev-packages]
 
