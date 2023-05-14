@@ -133,7 +133,7 @@ class ProjectSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = models.Project
-        fields = ['id', 'project_type', 'établissement', 'status', 
+        fields = ['id', 'title', 'project_type', 'établissement', 'status', 
                   'period', 'deposition_date', 'porteur_student', 
                   'porteur_teacher', 'project_team', 'équipe_encadrement',
                   'résumé']      
@@ -141,7 +141,7 @@ class CreateProjectSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Project
-        fields = ['id', 'project_type', 'établissement', 'status', 
+        fields = ['id', 'title', 'project_type', 'établissement', 'status', 
                   'period', 'deposition_date', 'porteur_student', 
                   'porteur_teacher', 'project_team', 'équipe_encadrement',
                   'résumé']      

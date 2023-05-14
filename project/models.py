@@ -143,7 +143,7 @@ class ProjectTeam(models.Model):
         return f'{self.name}: {self.team_leader.user.first_name}'
     
 class ManagementTeam(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, blank=True, null=True)
     superviseur = models.ForeignKey(Teacher, on_delete=models.PROTECT, related_name='superviseur')
     co_superviseur = models.ForeignKey(Teacher, on_delete=models.PROTECT, blank=True, null=True, related_name='co_superviseur')
     
