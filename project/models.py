@@ -192,8 +192,8 @@ class Project (models.Model):
     deposition_date = models.DateField(auto_now_add=True)
     porteur_student = models.OneToOneField(Student, on_delete=models.CASCADE, blank=True, null=True)
     porteur_teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, blank=True, null=True)
-    project_team = models.OneToOneField(ProjectTeam, on_delete=models.PROTECT , related_name='équipe_projet')
-    équipe_encadrement = models.ForeignKey(ManagementTeam, on_delete=models.PROTECT, related_name='équipe_encadrement')
+    project_team = models.OneToOneField(ProjectTeam, on_delete=models.PROTECT , related_name='équipe_projet',  blank=True, null=True)
+    équipe_encadrement = models.ForeignKey(ManagementTeam, on_delete=models.PROTECT, related_name='équipe_encadrement', blank=True, null=True)
 
     résumé = models.TextField(blank=True)
    
