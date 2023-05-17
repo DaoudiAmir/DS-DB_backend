@@ -48,7 +48,7 @@ class PeriodAdmin(admin.ModelAdmin):
     
 @admin.register(models.ProjectInvitation)    
 class ProjectInvitationAdmin(admin.ModelAdmin):
-    list_display = ['name', 'email'] 
+    list_display = ['name', 'email', 'consumed'] 
     search_fields = ['email']
     
 @admin.register(models.ProjectTeam)    

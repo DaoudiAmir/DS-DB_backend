@@ -129,6 +129,7 @@ class ProjectInvitation(models.Model):  #pour invité les membres
     name = models.CharField(max_length=255, choices=INVITATION_CHOICES)
     description = models.TextField(blank=True)
     email = models.EmailField(unique=True)  
+    consumed = models.BooleanField(default=False)
     
     def __str__(self) -> str:
         return f'{self.name}: {self.email}'    
