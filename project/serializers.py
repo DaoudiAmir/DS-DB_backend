@@ -128,7 +128,8 @@ class ProjectSerializer(serializers.ModelSerializer):
     period = serializers.StringRelatedField()
     porteur_student = serializers.StringRelatedField()
     porteur_teacher = serializers.StringRelatedField()
-
+    project_team = serializers.StringRelatedField()
+    équipe_encadrement = serializers.StringRelatedField()
     
     class Meta:
         model = models.Project

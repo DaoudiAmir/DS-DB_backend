@@ -166,9 +166,9 @@ class ProjectViewSet(ModelViewSet):
     ordering_fields = ['deposition_date']
     
     def get_serializer_class(self):
-        if self.request.method == 'POST':
+        if self.request.method in ['PUT', 'PATCH', 'POST']:
             return serializers.CreateProjectSerializer
-        elif self.request.method in ['PUT', 'PATCH', 'GET', 'HEAD', 'OPTIONS']:
+        elif self.request.method in ['GET', 'HEAD', 'OPTIONS']:
             return serializers.ProjectSerializer
     
     
