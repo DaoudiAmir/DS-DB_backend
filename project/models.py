@@ -136,7 +136,7 @@ class ProjectInvitation(models.Model):  #pour invité les membres
            
 class ProjectTeam(models.Model):
     name = models.CharField(max_length=255)
-    team_leader = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='chef_équipe')
+    team_leader = models.OneToOneField(Student, on_delete=models.CASCADE, related_name='chef_équipe')
     participants = models.ManyToManyField(Student, blank=True )
     
     
