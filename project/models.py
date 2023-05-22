@@ -41,6 +41,8 @@ class Student(models.Model):
     def last_name(self):
         return self.user.last_name
 
+    def user__email(self):
+        return self.user.email
     class Meta:
         ordering = ['user__first_name', 'user__last_name'] 
 
@@ -85,6 +87,8 @@ class Teacher(models.Model):
     def last_name(self):
         return self.user.last_name
 
+    def user__email(self):
+        return self.user.email
     class Meta:
         ordering = ['user__first_name', 'user__last_name'] 
 

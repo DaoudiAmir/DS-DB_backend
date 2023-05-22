@@ -127,7 +127,7 @@ class ProjectTeamViewSet(ModelViewSet):
     search_fields = ['name', 'team_leader__user__email', 'participants__user__email']
     
     def get_serializer_class(self):
-        if self.request.method == 'POST':
+        if self.request.method in ['POST', 'PUT', 'PATCH']:
             return serializers.CreateProjectTeamSerializer
         elif self.request.method in ['PUT', 'PATCH', 'GET', 'HEAD', 'OPTIONS']:
             return serializers.ProjectTeamSerializer

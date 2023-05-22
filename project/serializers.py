@@ -36,17 +36,20 @@ class StudentSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = models.Student
-        fields = ['id', 'user_id','établissement', 'num_inscription',
+        fields = ['id', 'user_id','user__email', 'first_name', 'last_name','établissement', 'num_inscription',
                   'birth_date', 'phone_number', 'profile_picture',
                   'filiére', 'spécialité']
+        read_only_fields = ['user__email', 'first_name', 'last_name']
         
 class BaseStudentSerializer(serializers.ModelSerializer):
     user_id = serializers.IntegerField(read_only=True)
     class Meta:
         model = models.Student
-        fields = ['id', 'user_id', 'num_inscription',
+        fields = ['id', 'user_id', 'user_id','user__email', 'first_name', 'last_name', 'num_inscription',
                   'birth_date', 'phone_number', 'profile_picture',
                   'filiére', 'spécialité'] 
+        read_only_fields = ['user__email', 'first_name', 'last_name']
+        
 
 
 
@@ -58,17 +61,21 @@ class TeacherSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = models.Teacher
-        fields = ['id', 'user_id','établissement', 'matricule',
+        fields = ['id', 'user_id','établissement', 'matricule'
+                  ,'user__email', 'first_name', 'last_name',
                   'birth_date', 'phone_number', 'profile_picture',
                   'grade', 'spécialité', 'is_president_of_commité', 'is_membre_of_commité']
+        read_only_fields = ['user__email', 'first_name', 'last_name']
         
 class BaseTeacherSerializer(serializers.ModelSerializer):
     user_id = serializers.IntegerField(read_only=True)
     class Meta:
         model = models.Teacher
         fields = ['id', 'user_id', 'matricule',
+                  'user__email', 'first_name', 'last_name',
                   'birth_date', 'phone_number', 'profile_picture',
                   'grade', 'spécialité'] 
+        read_only_fields = ['user__email', 'first_name', 'last_name']
         
         
 ########### project deposition
@@ -88,8 +95,8 @@ class ProjectInvitationSerializer(serializers.ModelSerializer):
         fields = '__all__'
                         
 class ProjectTeamSerializer(serializers.ModelSerializer):
-    team_leader = serializers.StringRelatedField()
-     ### must include select related 'Student'
+    team_leader = BaseStudentSerializer()
+    participants = BaseStudentSerializer(many=True, read_only=True)
     
     class Meta:
         model = models.ProjectTeam
@@ -101,8 +108,8 @@ class CreateProjectTeamSerializer(serializers.ModelSerializer):
         
         
 class ManagementTeamSerializer(serializers.ModelSerializer):
-    superviseur = serializers.StringRelatedField()
-    co_superviseur = serializers.StringRelatedField()
+    superviseur = TeacherSerializer()
+    co_superviseur = TeacherSerializer()
     
     class Meta:
         model = models.ManagementTeam
@@ -123,13 +130,13 @@ class ProjectTypeSerializer(serializers.ModelSerializer):
         
         ############## the big boy
 class ProjectSerializer(serializers.ModelSerializer):
-    project_type = serializers.StringRelatedField()
+    project_type = ProjectTypeSerializer()
     établissement = serializers.StringRelatedField()
     period = serializers.StringRelatedField()
-    porteur_student = serializers.StringRelatedField()
-    porteur_teacher = serializers.StringRelatedField()
-    project_team = serializers.StringRelatedField()
-    équipe_encadrement = serializers.StringRelatedField()
+    porteur_student = StudentSerializer()
+    porteur_teacher = TeacherSerializer()
+    project_team = ProjectTeamSerializer()
+    équipe_encadrement = ManagementTeamSerializer()
     
     class Meta:
         model = models.Project
