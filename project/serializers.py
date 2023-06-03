@@ -95,7 +95,7 @@ class ProjectInvitationSerializer(serializers.ModelSerializer):
         fields = '__all__'
                         
 class ProjectTeamSerializer(serializers.ModelSerializer):
-    team_leader = BaseStudentSerializer()
+    
     participants = BaseStudentSerializer(many=True, read_only=True)
     
     class Meta:

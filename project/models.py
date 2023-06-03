@@ -140,20 +140,19 @@ class ProjectInvitation(models.Model):  #pour invité les membres
            
 class ProjectTeam(models.Model):
     name = models.CharField(max_length=255)
-    team_leader = models.OneToOneField(Student, on_delete=models.CASCADE, related_name='chef_équipe')
     participants = models.ManyToManyField(Student, blank=True )
     
     
     def __str__(self) -> str:
-        return f'{self.name}: {self.team_leader.user.first_name}'
+        return self.name
     
 class ManagementTeam(models.Model):
     name = models.CharField(max_length=255, blank=True, null=True)
-    superviseur = models.ForeignKey(Teacher, on_delete=models.PROTECT, related_name='superviseur')
+    superviseur = models.ForeignKey(Teacher, on_delete=models.PROTECT,  blank=True, null=True, related_name='superviseur')
     co_superviseur = models.ForeignKey(Teacher, on_delete=models.PROTECT, blank=True, null=True, related_name='co_superviseur')
     
     def __str__(self) -> str:
-         return f'{self.name}: {self.superviseur.user.first_name}'
+         return self.name
 
 class ProjectType(models.Model):
     

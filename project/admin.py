@@ -53,7 +53,7 @@ class ProjectInvitationAdmin(admin.ModelAdmin):
     
 @admin.register(models.ProjectTeam)    
 class ProjectTeamAdmin(admin.ModelAdmin):
-    list_display = ['name', 'team_leader']
+    list_display = ['name']
     search_fields = ['name']       
     
 @admin.register(models.ManagementTeam)    
