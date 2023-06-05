@@ -123,8 +123,8 @@ class ProjectInvitationViewSet(ModelViewSet):
 class ProjectTeamViewSet(ModelViewSet):
     queryset = models.ProjectTeam.objects.all()
     filter_backends = [DjangoFilterBackend, SearchFilter]
-    filterset_fields = ['team_leader', 'participants']
-    search_fields = ['name', 'team_leader__user__email', 'participants__user__email']
+    filterset_fields = ['participants']
+    search_fields = ['name', 'participants__user__email']
     
     def get_serializer_class(self):
         if self.request.method in ['POST', 'PUT', 'PATCH']:
