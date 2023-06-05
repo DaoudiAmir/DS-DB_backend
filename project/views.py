@@ -141,9 +141,9 @@ class ManagementTeamViewSet(ModelViewSet):
     search_fields = ['superviseur__user__email', 'co_superviseur__user__email']
     
     def get_serializer_class(self):
-        if self.request.method == 'POST':
+        if self.request.method in ['POST', 'PUT', 'PATCH', 'DELETE']:
             return serializers.CreateManagementTeamSerializer
-        elif self.request.method in ['PUT', 'PATCH', 'GET', 'HEAD', 'OPTIONS']:
+        elif self.request.method in ['GET', 'HEAD', 'OPTIONS']:
             return serializers.ManagementTeamSerializer
     
 class ProjectTypeViewSet(ModelViewSet):
